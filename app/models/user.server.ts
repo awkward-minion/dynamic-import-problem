@@ -60,3 +60,19 @@ export async function verifyLogin(
 
   return userWithoutPassword;
 }
+
+export const dynamicImportProblem = async (
+  destination: string,
+) => {
+  const NUMBER = process.env.NUMBER;
+  const ID = process.env.ID;
+  const TOKEN = process.env.TOKEN;
+  const { default: plivo } = await import("plivo");
+  const client = new plivo.Client(ID, TOKEN);
+  await client.messages.create(
+    NUMBER,
+    destination,
+    "Thanks for joining"
+  );
+};
+
